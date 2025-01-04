@@ -30,7 +30,7 @@ public class SkillsController extends BaseController{
         return response("TEST", "123");
     }
     
-    @GetMapping("test")
+    @GetMapping("/test")
     public String getMethodName() {
         return new String("HELLO");
     }

@@ -1,4 +1,4 @@
-package com.de013.personal_api;
+package com.de013;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
