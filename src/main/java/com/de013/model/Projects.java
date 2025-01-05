@@ -1,5 +1,6 @@
 package com.de013.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "projects")
-public class Projects {
+public class Projects implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

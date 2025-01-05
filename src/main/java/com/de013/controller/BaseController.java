@@ -66,6 +66,11 @@ public class BaseController {
 		return response(map);
 	}
 
+	public ResponseEntity responseList(List<?> responseList, Page result) {
+		Map<String, Object> map = Utils.responseMap(responseList, result);
+		return response(map);
+	}
+
 	protected ResponseEntity response() {
 		return response(JCode.SUCCESS, msg(JCode.SUCCESS));
 	}

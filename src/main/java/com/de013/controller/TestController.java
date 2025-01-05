@@ -2,7 +2,6 @@ package com.de013.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-// import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,7 @@ import com.de013.utils.URI;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(URI.V1 + URI.TEST)
-public class TestController {
+public class TestController extends BaseController{
   @GetMapping(value = URI.ALL, produces = MediaType.APPLICATION_JSON_VALUE)
   public String allAccess() {
     return "Public Content.";

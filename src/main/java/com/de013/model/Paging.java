@@ -1,6 +1,11 @@
 package com.de013.model;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+
+import com.de013.dto.FilterVO;
 
 public class Paging {
     public static final int PAGE = 1;
@@ -58,5 +63,10 @@ public class Paging {
 		this.totalPages = totalPages;
 	}
 
-    
+    public Pageable getPageRequest(FilterVO request) {
+        setPage(request.getPage());
+        setSize(request.getSize());
+        Pageable pageRequest = PageRequest.of(this.page - 1, this.size);
+		return pageRequest;
+	}
 }
