@@ -18,4 +18,5 @@ public class URI {
     public static final String MOD = "/mod";
     public static final String ADMIN = "/admin";
     public static final String ALL = "/all";
+    public static final String ID = "{id}";
 }

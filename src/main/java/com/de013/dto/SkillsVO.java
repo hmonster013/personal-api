@@ -1,5 +1,15 @@
 package com.de013.dto;
 
-public class SkillsVO {
+import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class SkillsVO implements Serializable {
+    private Long id;
+
+    private String icon;
+    private String name;
 }

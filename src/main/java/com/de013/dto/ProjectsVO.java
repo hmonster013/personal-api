@@ -1,5 +1,7 @@
 package com.de013.dto;
 
-public class ProjectsVO {
+import java.io.Serializable;
+
+public class ProjectsVO implements Serializable {
 
 }

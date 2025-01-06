@@ -1,5 +1,7 @@
 package com.de013.model;
 
+import java.io.Serializable;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -7,7 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 
 import com.de013.dto.FilterVO;
 
-public class Paging {
+public class Paging implements Serializable {
     public static final int PAGE = 1;
     public static final int SIZE = 10;
 

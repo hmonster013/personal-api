@@ -1,5 +1,7 @@
 package com.de013.dto;
 
-public class ExperiencesDO {
+import java.io.Serializable;
+
+public class ExperiencesDO  implements Serializable{
 
 }

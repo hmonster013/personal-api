@@ -3,6 +3,12 @@ package com.de013.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.springframework.beans.BeanUtils;
+
+import com.de013.dto.SkillsRequest;
+import com.de013.dto.SkillsVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,13 +22,29 @@ import lombok.Setter;
 @Table(name = "skills")
 @Getter
 @Setter
-public class Skills implements Serializable{
+public class Skills implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String icon;
     private String name;
 
     @ManyToMany(mappedBy = "skills")
     private Set<Projects> projects;
+
+    public Skills() {
+
+    }
+    
+    public Skills(SkillsRequest skillsRequest) {
+        BeanUtils.copyProperties(skillsRequest, this);
+    }
+
+    @JsonIgnore
+    public SkillsVO getVO() {
+        SkillsVO skillsVO = new SkillsVO();
+        BeanUtils.copyProperties(this, skillsVO);
+        return skillsVO;
+    }
 }

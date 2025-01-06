@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.de013.dto.FilterVO;
+import com.de013.dto.SkillsRequest;
 import com.de013.model.Skills;
 import com.de013.repository.SkillsRepository;
 import com.de013.utils.Utils;
@@ -30,12 +31,13 @@ public class SkillsService {
         return skillsRepository.findById(id).orElse(null);
     }
 
-    public Skills create(Skills skills) {
+    public Skills create(SkillsRequest request) {
+        Skills skills = new Skills(request);
         this.save(skills);
         return skills;
     }
 
-    public Skills update(Skills skills, Skills existed) {
+    public Skills update(SkillsRequest skills, Skills existed) {
         log.debug("update " + skills);
         Utils.copyNonNullProperties(skills, existed);
         existed = save(existed);

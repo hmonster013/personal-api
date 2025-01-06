@@ -1,5 +1,7 @@
 package com.de013.dto;
 
-public class SkillsDO {
+import java.io.Serializable;
+
+public class SkillsDO implements Serializable {
 
 }

@@ -1,5 +1,6 @@
 package com.de013.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ import lombok.Setter;
        })
 @Getter
 @Setter
-public class User {
+public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

@@ -1,5 +1,7 @@
 package com.de013.dto;
 
-public class LinksDO {
+import java.io.Serializable;
+
+public class LinksDO implements Serializable {
 
 }
