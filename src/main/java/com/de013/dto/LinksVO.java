@@ -2,6 +2,16 @@ package com.de013.dto;
 
 import java.io.Serializable;
 
-public class LinksVO implements Serializable {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class LinksVO implements Serializable {
+    private Long id;
+
+    private String name;
+    private String title;
+    private String url;
+    private String icon;
 }

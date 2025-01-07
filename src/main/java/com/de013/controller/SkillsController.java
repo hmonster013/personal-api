@@ -29,10 +29,7 @@ import com.de013.model.Skills;
 import com.de013.service.SkillsService;
 import com.de013.utils.URI;
 
-import jakarta.websocket.server.PathParam;
-
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
