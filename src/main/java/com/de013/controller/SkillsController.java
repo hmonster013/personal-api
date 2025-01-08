@@ -32,7 +32,6 @@ import com.de013.utils.URI;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(URI.V1 + URI.SKILLS)
 public class SkillsController extends BaseController{
     static Logger log = LoggerFactory.getLogger(SkillsController.class.getName());
@@ -41,7 +40,7 @@ public class SkillsController extends BaseController{
     private SkillsService skillsService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listSkills(@RequestBody FilterVO request) throws Exception {
         log.info("Search Skill");
         Pageable paging = new Paging().getPageRequest(request);

@@ -16,8 +16,6 @@ import com.de013.utils.URI;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(URI.V1 + URI.TEST)
 public class TestController extends BaseController{

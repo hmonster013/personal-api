@@ -31,7 +31,6 @@ import com.de013.service.ProjectsService;
 import com.de013.utils.URI;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping(URI.V1 + URI.PROJECTS)
 public class ProjectsController extends BaseController{
     static Logger log = LoggerFactory.getLogger(ProjectsController.class.getName());

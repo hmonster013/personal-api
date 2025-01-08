@@ -3,6 +3,7 @@ package com.de013.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.de013.custom.CustomDateConverter;
@@ -20,5 +21,15 @@ public class WebConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(customDateConverter);
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+        .allowedOrigins("http://localhost:4201")
+        .allowedMethods("GET", "POST", "PUT", "DELETE")
+        .allowedHeaders("Authorization", "Content-Type", "Accept")
+        .allowedHeaders("*")
+        .maxAge(3600);
+    }   
 }
 

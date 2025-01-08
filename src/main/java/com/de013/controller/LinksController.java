@@ -31,7 +31,6 @@ import com.de013.service.LinksService;
 import com.de013.utils.URI;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping(URI.V1 + URI.LINKS)
 public class LinksController extends BaseController{
     static Logger log = LoggerFactory.getLogger(LinksController.class.getName());

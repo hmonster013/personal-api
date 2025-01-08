@@ -32,7 +32,6 @@ import com.de013.service.ExperiencesService;
 import com.de013.utils.URI;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping(URI.V1 + URI.EXPERIENCES)
 public class ExperiencesController extends BaseController{
     static Logger log = LoggerFactory.getLogger(ExperiencesController.class.getName());
