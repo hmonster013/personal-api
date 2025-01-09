@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FilterVO implements Serializable {
+    Long id;
+    String name;
     int page;
     int size;
 }

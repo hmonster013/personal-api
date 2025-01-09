@@ -12,6 +12,8 @@ import com.de013.model.Skills;
 
 @Repository
 public interface SkillsRepository extends JpaRepository<Skills, Long> {
-    @Query("SELECT s FROM Skills s WHERE 1=1 ")
+    @Query(" SELECT s FROM Skills s WHERE 1=1 "
+        + " AND ((:#{#p.name}) IS NULL OR LOWER(s.name) LIKE CONCAT('%', LOWER(:#{#p.name}), '%') )"
+        + " ORDER BY s.id ASC ")
     public Page<Skills> search(@Param("p") FilterVO request, Pageable paging);
 }
