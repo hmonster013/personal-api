@@ -39,7 +39,7 @@ public class ProjectsController extends BaseController{
     private ProjectsService projectsService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listProjects(@RequestBody FilterVO request) throws Exception {
         log.info("Search projects");
         Pageable paging = new Paging().getPageRequest(request);

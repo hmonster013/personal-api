@@ -12,6 +12,8 @@ import com.de013.model.Projects;
 
 @Repository
 public interface ProjectsRepository extends JpaRepository<Projects, Long> {
-    @Query("SELECT s FROM Projects s WHERE 1=1 ")
+    @Query("SELECT s FROM Projects s WHERE 1=1 "
+        + " AND ((:#{#p.name}) IS NULL OR LOWER(s.name) LIKE CONCAT('%', LOWER(:#{#p.name}), '%') )"
+        + " ORDER BY s.id ASC ")
     public Page<Projects> search(@Param("p") FilterVO request, Pageable paging);
 }

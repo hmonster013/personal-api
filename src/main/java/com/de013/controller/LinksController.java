@@ -39,7 +39,7 @@ public class LinksController extends BaseController{
     private LinksService linksService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listLinks(@RequestBody FilterVO request) throws Exception {
         log.info("Search links");
         Pageable paging = new Paging().getPageRequest(request);

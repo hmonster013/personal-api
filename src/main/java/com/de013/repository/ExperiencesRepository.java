@@ -12,6 +12,8 @@ import com.de013.model.Experiences;
 
 @Repository
 public interface ExperiencesRepository extends JpaRepository<Experiences, Long>{
-    @Query("SELECT s FROM Experiences s WHERE 1=1 ")
+    @Query("SELECT s FROM Experiences s WHERE 1=1 "
+        + " AND ((:#{#p.companyName}) IS NULL OR LOWER(s.companyName) LIKE CONCAT('%', LOWER(:#{#p.companyName}), '%') )"
+        + " ORDER BY s.id ASC ")
     public Page<Experiences> search(@Param("p") FilterVO request, Pageable paging);
 }

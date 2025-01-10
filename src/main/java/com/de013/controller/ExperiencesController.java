@@ -40,7 +40,7 @@ public class ExperiencesController extends BaseController{
     private ExperiencesService experiencesService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listExperiences(@RequestBody FilterVO request) throws Exception {
         log.info("Search experiences");
         Pageable paging = new Paging().getPageRequest(request);
