@@ -60,6 +60,7 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> 
           auth.requestMatchers("/v1/auth/**").permitAll()
+              .requestMatchers(request -> request.getRequestURI().matches("^/v1/.*/list$")).permitAll()
               .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               .anyRequest().authenticated()
         );

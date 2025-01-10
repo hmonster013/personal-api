@@ -38,7 +38,6 @@ public class ProjectsController extends BaseController{
     @Autowired
     private ProjectsService projectsService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listProjects(@RequestBody FilterVO request) throws Exception {
         log.info("Search projects");
@@ -70,7 +69,7 @@ public class ProjectsController extends BaseController{
         log.info("Create project");
         
         Projects project = projectsService.create(projectRequest);
-        return response(project);
+        return response(project.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -86,7 +85,7 @@ public class ProjectsController extends BaseController{
 		}
 
         Projects result = projectsService.update(projectRequest, existed);
-        return response(result);
+        return response(result.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

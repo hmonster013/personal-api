@@ -39,7 +39,6 @@ public class ExperiencesController extends BaseController{
     @Autowired
     private ExperiencesService experiencesService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listExperiences(@RequestBody FilterVO request) throws Exception {
         log.info("Search experiences");
@@ -71,7 +70,7 @@ public class ExperiencesController extends BaseController{
         log.info("Create experience");
 
         Experiences experience = experiencesService.create(experienceRequest);
-        return response(experience);
+        return response(experience.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,7 +86,7 @@ public class ExperiencesController extends BaseController{
 		}
 
         Experiences result = experiencesService.update(experienceRequest, existed);
-        return response(result);
+        return response(result.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

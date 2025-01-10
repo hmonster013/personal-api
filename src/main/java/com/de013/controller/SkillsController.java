@@ -39,7 +39,6 @@ public class SkillsController extends BaseController{
     @Autowired
     private SkillsService skillsService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listSkills(@RequestBody FilterVO request) throws Exception {
         log.info("Search Skill");
@@ -70,7 +69,7 @@ public class SkillsController extends BaseController{
     public ResponseEntity createSkill(@ModelAttribute SkillsRequest skillsRequest) throws Exception {
         log.info("Create skill");
         Skills skills = skillsService.create(skillsRequest);
-        return response(skills);
+        return response(skills.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -86,7 +85,7 @@ public class SkillsController extends BaseController{
 		}
 
         Skills result = skillsService.update(skillsRequest, existed);
-        return response(result);
+        return response(result.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

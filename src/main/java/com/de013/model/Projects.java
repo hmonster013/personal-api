@@ -2,12 +2,14 @@ package com.de013.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 
 import com.de013.dto.ProjectsRequest;
 import com.de013.dto.ProjectsVO;
+import com.de013.dto.SkillsVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -49,7 +51,7 @@ public class Projects implements Serializable{
         joinColumns = @JoinColumn(name = "project_id"),
         inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-    private Set<Skills> skills;
+    private List<Skills> skills;
 
     public Projects() {
         
@@ -63,6 +65,7 @@ public class Projects implements Serializable{
     public ProjectsVO getVO() {
         ProjectsVO projectsVO = new ProjectsVO();
         BeanUtils.copyProperties(this, projectsVO);
+        projectsVO.setSkillsVOs(this.skills.stream().map(Skills::getVO).toList());
         return projectsVO;
     }
 }

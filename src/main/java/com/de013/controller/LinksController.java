@@ -38,7 +38,6 @@ public class LinksController extends BaseController{
     @Autowired
     private LinksService linksService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = URI.LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listLinks(@RequestBody FilterVO request) throws Exception {
         log.info("Search links");
@@ -70,7 +69,7 @@ public class LinksController extends BaseController{
         log.info("Create link");
         
         Links link = linksService.create(linkRequest);
-        return response(link);
+        return response(link.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -86,7 +85,7 @@ public class LinksController extends BaseController{
 		}
 
         Links result = linksService.update(linkRequest, existed);
-        return response(result);
+        return response(result.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

@@ -1,7 +1,7 @@
 package com.de013.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
@@ -34,7 +34,7 @@ public class Skills implements Serializable {
     private String name;
 
     @ManyToMany(mappedBy = "skills")
-    private Set<Projects> projects;
+    private List<Projects> projects;
 
     public Skills() {
 

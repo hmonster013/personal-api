@@ -2,6 +2,7 @@ package com.de013.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import com.de013.model.Skills;
@@ -22,5 +23,5 @@ public class ProjectsVO implements Serializable {
 
     private Date startDate;
     private Date endDate;
-    private Set<Skills> skills;
+    private List<SkillsVO> skillsVOs;
 }
