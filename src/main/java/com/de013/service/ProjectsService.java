@@ -1,6 +1,9 @@
 package com.de013.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.de013.dto.FilterVO;
 import com.de013.dto.ProjectsRequest;
+import com.de013.dto.SkillsVO;
 import com.de013.model.Projects;
+import com.de013.model.Skills;
 import com.de013.repository.ProjectsRepository;
 import com.de013.utils.Utils;
 
@@ -21,6 +26,9 @@ public class ProjectsService {
 
     @Autowired
     private ProjectsRepository projectsRepository;
+
+    @Autowired
+    private SkillsService skillsService;
 
     public List<Projects> findAll() {
         return projectsRepository.findAll();
@@ -32,6 +40,10 @@ public class ProjectsService {
 
     public Projects create(ProjectsRequest request) {
         Projects projects = new Projects(request);
+        for (SkillsVO skillsVO : request.getSkillsVOs()) {
+            Skills temp = skillsService.findById(skillsVO.getId());
+            projects.getSkills().add(temp);
+        }
         this.save(projects);
         return projects;
     }
@@ -39,6 +51,32 @@ public class ProjectsService {
     public Projects update(ProjectsRequest request, Projects existed) {
         log.debug("update " + request);
         Utils.copyNonNullProperties(request, existed);
+
+        
+        Set<Long> existingSkillIds = existed.getSkills().stream()
+        .map(Skills::getId)
+        .collect(Collectors.toSet());
+
+        Set<Long> requestedSkillIds = request.getSkillsVOs().stream()
+        .map(SkillsVO::getId)
+        .collect(Collectors.toSet());
+        
+        Set<Long> skillsToAdd = new HashSet<>(requestedSkillIds);
+        skillsToAdd.removeAll(existingSkillIds);
+
+        Set<Long> skillsToRemove = new HashSet<>(existingSkillIds);
+        skillsToRemove.removeAll(requestedSkillIds);
+
+        for (Long skillId : skillsToAdd) {
+            Skills getSkill = skillsService.findById(skillId);
+            existed.getSkills().add(getSkill);
+        }
+
+        for (Long skillId : skillsToRemove) {
+            Skills getSkill = skillsService.findById(skillId);
+            existed.getSkills().remove(getSkill);
+        }
+
         existed = save(existed);
         return existed;
     }

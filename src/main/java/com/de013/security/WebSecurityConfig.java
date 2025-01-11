@@ -61,6 +61,8 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(auth -> 
           auth.requestMatchers("/v1/auth/**").permitAll()
               .requestMatchers(request -> request.getRequestURI().matches("^/v1/.*/list$")).permitAll()
+              .requestMatchers("/v1/image/view/**").permitAll()
+              .requestMatchers("/favicon.ico").permitAll()
               .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               .anyRequest().authenticated()
         );

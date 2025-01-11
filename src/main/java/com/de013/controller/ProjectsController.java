@@ -65,7 +65,7 @@ public class ProjectsController extends BaseController{
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createProject(@ModelAttribute ProjectsRequest projectRequest) throws Exception {
+    public ResponseEntity createProject(@RequestBody ProjectsRequest projectRequest) throws Exception {
         log.info("Create project");
         
         Projects project = projectsService.create(projectRequest);
@@ -74,7 +74,7 @@ public class ProjectsController extends BaseController{
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateProject(@ModelAttribute ProjectsRequest projectRequest) throws Exception {
+    public ResponseEntity updateProject(@RequestBody ProjectsRequest projectRequest) throws Exception {
         log.info("Start update project");
 
         Long id = projectRequest.getId();

@@ -15,7 +15,16 @@ spring:
     user:
       name: admin
       password: admin
-
+  output:
+    ansi:
+      enabled: always
+  servlet:
+    multipart:
+      max-file-size:
+        10MB
+      max-request-size:
+        10MB
+      
 de013:
   app:
     jwtCookieName: de013
@@ -31,3 +40,6 @@ web:
     url: "http://localhost:4201"
   client:
     url: "http://localhost:4200"
+
+file:
+  upload-dir: E:\local_code\personal web\images\

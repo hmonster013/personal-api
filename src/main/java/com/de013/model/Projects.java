@@ -1,6 +1,7 @@
 package com.de013.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +59,15 @@ public class Projects implements Serializable{
     }
 
     public Projects(ProjectsRequest request) {
-        BeanUtils.copyProperties(request, this);
+        this.id = request.getId();
+        this.name = request.getName();
+        this.img = request.getImg();
+        this.description = request.getDescription();
+        this.linkGithub = request.getLinkGithub();
+        this.linkWebsite = request.getLinkWebsite();
+        this.startDate = request.getStartDate();
+        this.endDate = request.getEndDate();
+        this.skills = new ArrayList<>();
     }
 
     @JsonIgnore

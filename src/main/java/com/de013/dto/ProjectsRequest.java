@@ -1,6 +1,7 @@
 package com.de013.dto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,5 +35,5 @@ public class ProjectsRequest {
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
     
-    private Set<Skills> skills;
+    private List<SkillsVO> skillsVOs;
 }

@@ -13,6 +13,7 @@ import com.de013.dto.ExperiencesRequest;
 import com.de013.dto.FilterVO;
 import com.de013.model.Experiences;
 import com.de013.repository.ExperiencesRepository;
+import com.de013.utils.URI;
 import com.de013.utils.Utils;
 
 @Service
@@ -22,6 +23,9 @@ public class ExperiencesService {
     @Autowired
     private ExperiencesRepository experiencesRepository;
 
+    @Autowired
+    private ImageStorageService imageStorageService;
+
     public List<Experiences> findAll() {
         return experiencesRepository.findAll();
     }
@@ -30,15 +34,29 @@ public class ExperiencesService {
         return experiencesRepository.findById(id).orElse(null);
     }
 
-    public Experiences create(ExperiencesRequest request) {
+    public Experiences create(ExperiencesRequest request) throws Exception{
         Experiences experiences = new Experiences(request);
+        String imageUrl = "";
+        if (request.getFile() != null) {
+            imageUrl = imageStorageService.saveFile(request.getFile());
+            experiences.setCompanyImg(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH + imageUrl);
+        }
         this.save(experiences);
         return experiences;
     }
 
-    public Experiences update(ExperiencesRequest request, Experiences existed) {
+    public Experiences update(ExperiencesRequest request, Experiences existed) throws Exception {
         log.debug("update " + request);
         Utils.copyNonNullProperties(request, existed);
+        String imageUrl = "";
+        if (request.getFile() != null) {
+            if (!existed.getCompanyImg().equals("")) {
+                String imageName = existed.getCompanyImg().split(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH)[1];
+                imageStorageService.deleteFile(imageName);
+            }
+            imageUrl = imageStorageService.saveFile(request.getFile());
+            existed.setCompanyImg(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH + imageUrl);
+        }
         existed = save(existed);
         return existed;
     }
@@ -49,7 +67,13 @@ public class ExperiencesService {
         return experiences;
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws Exception{
+        Experiences experiences = experiencesRepository.findById(id).orElse(null);
+        if (!experiences.getCompanyImg().equals("")) {
+            String imageName = experiences.getCompanyImg().split(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH)[1];
+            imageStorageService.deleteFile(imageName);
+        }
+
         experiencesRepository.deleteById(id);
     }
 

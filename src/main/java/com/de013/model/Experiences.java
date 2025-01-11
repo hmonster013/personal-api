@@ -9,6 +9,7 @@ import com.de013.dto.ExperiencesRequest;
 import com.de013.dto.ExperiencesVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Experiences implements Serializable {
     private String companyImg;
     private String companyName;
     private String jobTitle;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String workingPeriod;
     
