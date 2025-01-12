@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.de013.dto.FilterVO;
 import com.de013.dto.ProjectsRequest;
@@ -29,6 +32,7 @@ import com.de013.model.Paging;
 import com.de013.model.Projects;
 import com.de013.service.ProjectsService;
 import com.de013.utils.URI;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(URI.V1 + URI.PROJECTS)
@@ -65,26 +69,38 @@ public class ProjectsController extends BaseController{
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createProject(@RequestBody ProjectsRequest projectRequest) throws Exception {
+    public ResponseEntity createProject(
+        @RequestParam("requestJsonData") String jsonData,
+        @RequestPart(value = "file", required = false) MultipartFile file
+    ) throws Exception {
         log.info("Create project");
         
-        Projects project = projectsService.create(projectRequest);
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProjectsRequest request = objectMapper.readValue(jsonData, ProjectsRequest.class);
+
+        Projects project = projectsService.create(request, file);
         return response(project.getVO());
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateProject(@RequestBody ProjectsRequest projectRequest) throws Exception {
+    public ResponseEntity updateProject(
+        @RequestParam("requestJsonData") String jsonData,
+        @RequestPart(value = "file", required = false) MultipartFile file
+    ) throws Exception {
         log.info("Start update project");
 
-        Long id = projectRequest.getId();
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProjectsRequest request = objectMapper.readValue(jsonData, ProjectsRequest.class);
+
+        Long id = request.getId();
         Projects existed = projectsService.findById(id);
 
         if (existed == null) {
 			throw new RestException("Project Id [" + id + "] invalid ");
 		}
 
-        Projects result = projectsService.update(projectRequest, existed);
+        Projects result = projectsService.update(request, existed, file);
         return response(result.getVO());
     }
 

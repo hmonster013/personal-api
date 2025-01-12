@@ -62,7 +62,7 @@ public class WebSecurityConfig {
           auth.requestMatchers("/v1/auth/**").permitAll()
               .requestMatchers(request -> request.getRequestURI().matches("^/v1/.*/list$")).permitAll()
               .requestMatchers("/v1/image/view/**").permitAll()
-              .requestMatchers("/favicon.ico").permitAll()
+              .requestMatchers("/v1/links/view/**").permitAll()
               .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               .anyRequest().authenticated()
         );

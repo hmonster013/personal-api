@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.de013.custom.CustomDateDeserializer;
 import com.de013.custom.CustomDateSerializer;
@@ -36,4 +37,6 @@ public class ProjectsRequest {
     private Date endDate;
     
     private List<SkillsVO> skillsVOs;
+
+    private MultipartFile file;
 }

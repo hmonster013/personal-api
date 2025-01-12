@@ -30,6 +30,14 @@ public class LinksService {
         return linksRepository.findById(id).orElse(null);
     }
 
+    public List<Links> findByName(String name) {
+        return linksRepository.findByName(name);
+    }
+
+    public List<Links> findByListName(List<String> listName) {
+        return linksRepository.findByListName(listName);
+    }
+
     public Links create(LinksRequest request) {
         Links links = new Links(request);
         this.save(links);

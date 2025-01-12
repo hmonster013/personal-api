@@ -25,4 +25,5 @@ public class URI {
     public static final String VIEW = "/view";
     public static final String FILENAME = "/{filename}";
     public static final String DELETE = "/delete";
+    public static final String NAME = "/{name}";
 }

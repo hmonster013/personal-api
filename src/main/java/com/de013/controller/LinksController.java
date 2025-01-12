@@ -1,6 +1,11 @@
 package com.de013.controller;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +66,18 @@ public class LinksController extends BaseController{
 		} else {
 			throw new RestException("Link Id [" + id + "] invalid ");
 		}
+    }
+
+    @GetMapping(value = URI.VIEW + URI.LIST + URI.NAME, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getByListName(@PathVariable("name") String name) {
+        log.info("Get detail links by list name");
+
+        List<String> listName = Arrays.asList(name.split(","));
+        List<Links> links = linksService.findByListName(listName);
+        log.info("Get list link by list name [" + name +"]");
+        Map<String, String> result = links.stream().collect(Collectors.toMap(Links::getName, Links::getUrl));
+
+        return response(result);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
