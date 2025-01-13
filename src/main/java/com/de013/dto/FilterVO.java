@@ -12,6 +12,7 @@ import lombok.Setter;
 public class FilterVO implements Serializable {
     Long id;
     String name;
+    String title;
     String companyName;
     int page;
     int size;

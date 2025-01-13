@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.de013.dto.ExperiencesRequest;
 import com.de013.dto.FilterVO;
@@ -34,27 +35,27 @@ public class ExperiencesService {
         return experiencesRepository.findById(id).orElse(null);
     }
 
-    public Experiences create(ExperiencesRequest request) throws Exception{
+    public Experiences create(ExperiencesRequest request, MultipartFile file) throws Exception{
         Experiences experiences = new Experiences(request);
         String imageUrl = "";
-        if (request.getFile() != null) {
-            imageUrl = imageStorageService.saveFile(request.getFile());
+        if (file != null) {
+            imageUrl = imageStorageService.saveFile(file);
             experiences.setCompanyImg(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH + imageUrl);
         }
         this.save(experiences);
         return experiences;
     }
 
-    public Experiences update(ExperiencesRequest request, Experiences existed) throws Exception {
+    public Experiences update(ExperiencesRequest request, Experiences existed, MultipartFile file) throws Exception {
         log.debug("update " + request);
         Utils.copyNonNullProperties(request, existed);
         String imageUrl = "";
-        if (request.getFile() != null) {
+        if (file != null) {
             if (!existed.getCompanyImg().equals("")) {
                 String imageName = existed.getCompanyImg().split(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH)[1];
                 imageStorageService.deleteFile(imageName);
             }
-            imageUrl = imageStorageService.saveFile(request.getFile());
+            imageUrl = imageStorageService.saveFile(file);
             existed.setCompanyImg(URI.BASE + URI.V1 + URI.IMAGE + URI.VIEW+  URI.SLASH + imageUrl);
         }
         existed = save(existed);

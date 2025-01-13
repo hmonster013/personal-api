@@ -35,6 +35,4 @@ public class ExperiencesRequest implements Serializable{
     @JsonDeserialize(using = CustomDateDeserializer.class)
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
-
-    private MultipartFile file = null;
 }

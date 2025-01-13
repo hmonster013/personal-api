@@ -42,4 +42,4 @@ web:
     url: "http://localhost:4200"
 
 file:
-  upload-dir: E:\local_code\personal web\images\
+  upload-dir: D:\local_code\personal-web\images\
