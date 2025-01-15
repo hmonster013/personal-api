@@ -55,6 +55,19 @@ public class BlogsController extends BaseController{
         return responseList(reponseList, result);
     }
 
+    @GetMapping(value = URI.VIEW + URI.ID , produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity viewDataById(@PathVariable("id") long id) throws Exception{
+        log.info("Get detail blog by [" + id + "]");
+        
+        Blogs blog = blogsService.findById(id);
+		log.info("Get blog by getId [" + id + "]");
+		if (blog != null) {
+			return response(blog.getVO());
+		} else {
+			throw new RestException("Blog Id [" + id + "] invalid ");
+		}
+    }
+    
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = URI.ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getById(@PathVariable("id") long id) throws Exception{
